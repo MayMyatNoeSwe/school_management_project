@@ -1,0 +1,130 @@
+/* General Styles */
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Wrapper */
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #2c3e50;
+    color: #fff;
+    transition: all 0.3s;
+    min-height: 100vh;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #1a2634;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul li a {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+    background: #34495e;
+}
+
+#sidebar ul li.active>a {
+    background: #34495e;
+}
+
+#sidebar ul li a i {
+    margin-right: 10px;
+}
+
+/* Content */
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* Navbar */
+.navbar {
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#sidebarCollapse {
+    background: #2c3e50;
+    border: none;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+/* Tables */
+.table> :not(caption)>*>* {
+    padding: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+/* Custom Colors */
+.bg-primary {
+    background-color: #3498db !important;
+}
+
+.bg-success {
+    background-color: #2ecc71 !important;
+}
+
+.bg-warning {
+    background-color: #f1c40f !important;
+}
+
+.bg-info {
+    background-color: #1abc9c !important;
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+/* Badges */
+.badge {
+    padding: 0.5em 0.8em;
+}
