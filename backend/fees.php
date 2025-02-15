@@ -1,20 +1,7 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fees - School Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/style.css">
-</head>
-
-<body> -->
 <?php include './layouts/header.php' ?>
 <div class="wrapper">
     <!-- Sidebar Starts-->
-    <?php include './components/fees/sidebar.php' ?>
+    <?php include './components/sidebar.php' ?>
     <!-- Sidebar Ends-->
 
     <!-- Page Content -->
@@ -43,7 +30,81 @@
 </div>
 
 <!-- Add Payment Modal Starts-->
-<?php include './components/fees/payment-modal.php' ?>
+<div class="modal fade" id="addPaymentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Record New Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row g-3">
+                        <!-- Student Information -->
+                        <div class="col-md-6">
+                            <label class="form-label">Student Name</label>
+                            <select class="form-select" required>
+                                <option value="">Select Student</option>
+                                <option>John Doe</option>
+                                <option>Jane Smith</option>
+                                <option>Mike Johnson</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Class</label>
+                            <select class="form-select" required>
+                                <option value="">Select Class</option>
+                                <option>X-A</option>
+                                <option>X-B</option>
+                                <option>IX-A</option>
+                            </select>
+                        </div>
+
+                        <!-- Payment Details -->
+                        <div class="col-md-6">
+                            <label class="form-label">Fee Type</label>
+                            <select class="form-select" required>
+                                <option value="">Select Fee Type</option>
+                                <option>Tuition Fee</option>
+                                <option>Library Fee</option>
+                                <option>Lab Fee</option>
+                                <option>Transport Fee</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Amount</label>
+                            <input type="number" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Payment Date</label>
+                            <input type="date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Payment Method</label>
+                            <select class="form-select" required>
+                                <option value="">Select Payment Method</option>
+                                <option>Cash</option>
+                                <option>Credit Card</option>
+                                <option>Bank Transfer</option>
+                                <option>Check</option>
+                            </select>
+                        </div>
+
+                        <!-- Additional Information -->
+                        <div class="col-12">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Record Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Add Payment Modal Ends-->
 
 

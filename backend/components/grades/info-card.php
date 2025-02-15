@@ -11,9 +11,9 @@
                     <span class="badge bg-danger">3</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="register.php">New student registration</a></li>
-                    <li><a class="dropdown-item" href="#">Fee payment due</a></li>
-                    <li><a class="dropdown-item" href="#">Staff meeting today</a></li>
+                    <li><a class="dropdown-item" href="#">Grade submission deadline</a></li>
+                    <li><a class="dropdown-item" href="#">Report cards ready</a></li>
+                    <li><a class="dropdown-item" href="#">Grade review request</a></li>
                 </ul>
             </div>
             <div class="dropdown ms-3">

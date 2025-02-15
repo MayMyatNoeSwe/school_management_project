@@ -24,17 +24,22 @@ CREATE TABLE IF NOT EXISTS students (
 );
 
 -- Create Teachers table
-CREATE TABLE IF NOT EXISTS teachers (
-    teacher_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE,
-    name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(15),
-    hire_date DATE NOT NULL,
-    salary VARCHAR(50),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+CREATE TABLE Teachers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    department VARCHAR(100) NOT NULL,
+    employment_status ENUM('Full-time', 'Part-time', 'Contract') NOT NULL,
+    salary VARCHAR(255) NOT NULL,
+    joining_date DATE NOT NULL,
+    qualification VARCHAR(255) NOT NULL,
+    address TEXT NOT NULL,
+    specialization VARCHAR(255) NOT NULL,
+    teaching_experience INT NOT NULL
 );
 
+-- Create Courses table
 -- Create Courses table
 CREATE TABLE IF NOT EXISTS courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,8 +47,9 @@ CREATE TABLE IF NOT EXISTS courses (
     course_description TEXT,
     credits INT NOT NULL,
     teacher_id INT,
-    FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id) ON DELETE SET NULL
+    FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE SET NULL
 );
+
 
 -- Create Subjects table
 CREATE TABLE IF NOT EXISTS subjects (
@@ -56,7 +62,7 @@ CREATE TABLE IF NOT EXISTS subjects (
 -- Create Classrooms table
 CREATE TABLE IF NOT EXISTS classrooms (
     classroom_id INT AUTO_INCREMENT PRIMARY KEY,
-    room_number VARCHAR(10) NOT NULL,
+    room_number VARCHAR(10) UNIQUE NOT NULL,
     capacity INT NOT NULL
 );
 

@@ -1,7 +1,7 @@
 <?php include './layouts/header.php'?>
 <div class="wrapper">
     <!-- Sidebar starts-->
-    <?php include './components/admin/sidebar.php'?>
+    <?php include './components/sidebar.php'?>
     <!-- Sidebar ends -->
 
     <!-- Page Content -->

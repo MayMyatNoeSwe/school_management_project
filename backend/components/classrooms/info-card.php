@@ -11,9 +11,9 @@
                     <span class="badge bg-danger">3</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="register.php">New student registration</a></li>
-                    <li><a class="dropdown-item" href="#">Fee payment due</a></li>
-                    <li><a class="dropdown-item" href="#">Staff meeting today</a></li>
+                    <li><a class="dropdown-item" href="#">Room maintenance scheduled</a></li>
+                    <li><a class="dropdown-item" href="#">Capacity update</a></li>
+                    <li><a class="dropdown-item" href="#">New room assignment</a></li>
                 </ul>
             </div>
             <div class="dropdown ms-3">
