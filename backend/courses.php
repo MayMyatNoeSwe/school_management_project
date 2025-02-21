@@ -1,3 +1,42 @@
+<?php
+include './database/db.php';
+include 'data.php';
+include 'errors.php';
+$errors = [];
+
+// Add course
+if (isset($_POST['add_course'])) {
+    $course_name = $_POST['course_name'];
+    $course_description = $_POST['course_description'];
+    $credits = $_POST['credits'];
+    $teacher_id = $_POST['teacher_id'];
+
+    empty($course_name) ? $errors['course_name'] = "course name required" : "";
+    empty($credits) ? $errors['credits'] = "credits required" : "";
+
+    $qry = "SELECT * FROM courses WHERE course_name = :course_name";
+    $stmt = $pdo->prepare($qry);
+    $stmt->bindParam(':course_name', $course_name, PDO::PARAM_STR);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($res) > 0) {
+        $errors['course_name'] = "course name already exists";
+    }
+
+    if (count($errors) === 0) {
+        $qry = "INSERT INTO courses (course_name, course_description, credits, teacher_id) VALUES (:course_name, :course_description, :credits, :teacher_id)";
+        $stmt = $pdo->prepare($qry);
+        $stmt->bindParam(':course_name', $course_name, PDO::PARAM_STR);
+        $stmt->bindParam(':course_description', $course_description, PDO::PARAM_STR);
+        $stmt->bindParam(':credits', $credits, PDO::PARAM_INT);
+        $stmt->bindParam(':teacher_id', $teacher_id, PDO::PARAM_INT);
+        $res = $stmt->execute();
+        print_r($res);
+    }
+}
+
+?>
+
 <?php include './layouts/header.php'; ?>
 <div class="wrapper">
     <!-- Sidebar -->
@@ -13,175 +52,13 @@
             <?php include 'components/courses/header.php'; ?>
 
             <!-- Course Statistics -->
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="card bg-primary text-white">
-                        <div class="card-body">
-                            <h5 class="card-title">Total Courses</h5>
-                            <h2>48</h2>
-                            <p class="mb-0">Active courses</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card bg-success text-white">
-                        <div class="card-body">
-                            <h5 class="card-title">Enrollments</h5>
-                            <h2>856</h2>
-                            <p class="mb-0">Current semester</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card bg-warning text-white">
-                        <div class="card-body">
-                            <h5 class="card-title">Departments</h5>
-                            <h2>12</h2>
-                            <p class="mb-0">Offering courses</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card bg-info text-white">
-                        <div class="card-body">
-                            <h5 class="card-title">New Courses</h5>
-                            <h2>5</h2>
-                            <p class="mb-0">Added this month</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php include 'components/courses/course-overview.php'; ?>
 
             <!-- Filters -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <select class="form-select">
-                                <option value="">All Departments</option>
-                                <option>Mathematics</option>
-                                <option>Science</option>
-                                <option>English</option>
-                                <option>Social Studies</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select">
-                                <option value="">Course Level</option>
-                                <option>Beginner</option>
-                                <option>Intermediate</option>
-                                <option>Advanced</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select">
-                                <option value="">Status</option>
-                                <option>Active</option>
-                                <option>Inactive</option>
-                                <option>Upcoming</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-secondary w-100">Apply Filters</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php include 'components/courses/filters.php'; ?>
 
             <!-- Courses Table -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Course ID</th>
-                                    <th>Course Name</th>
-                                    <th>Department</th>
-                                    <th>Credits</th>
-                                    <th>Level</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>MATH101</td>
-                                    <td>Introduction to Calculus</td>
-                                    <td>Mathematics</td>
-                                    <td>3</td>
-                                    <td>Intermediate</td>
-                                    <td><span class="badge bg-success">Active</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info me-2" title="View Details">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-primary me-2" title="Edit">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PHY201</td>
-                                    <td>Classical Mechanics</td>
-                                    <td>Science</td>
-                                    <td>4</td>
-                                    <td>Advanced</td>
-                                    <td><span class="badge bg-success">Active</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info me-2" title="View Details">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-primary me-2" title="Edit">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ENG102</td>
-                                    <td>Creative Writing</td>
-                                    <td>English</td>
-                                    <td>3</td>
-                                    <td>Beginner</td>
-                                    <td><span class="badge bg-warning">Upcoming</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info me-2" title="View Details">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-primary me-2" title="Edit">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <nav class="mt-4">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+            <?php include 'components/courses/course-table.php'; ?>
         </div>
     </div>
 </div>
@@ -195,74 +72,44 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="POST" action="">
                     <div class="row g-3">
                         <!-- Basic Information -->
                         <div class="col-md-6">
-                            <label class="form-label">Course Code</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
                             <label class="form-label">Course Name</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Department</label>
-                            <select class="form-select" required>
-                                <option value="">Select Department</option>
-                                <option>Mathematics</option>
-                                <option>Science</option>
-                                <option>English</option>
-                                <option>Social Studies</option>
-                            </select>
+                            <input type="text" name="course_name" class="form-control" required>
+                            <?php if (isset($errors['course_name'])): ?>
+                            <div class="text-danger"><?php echo $errors['course_name']; ?></div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Credits</label>
-                            <input type="number" class="form-control" min="1" max="6" required>
+                            <input type="number" name="credits" class="form-control" min="1" max="6" required>
+                            <?php if (isset($errors['credits'])): ?>
+                            <div class="text-danger"><?php echo $errors['credits']; ?></div>
+                            <?php endif; ?>
                         </div>
 
                         <!-- Course Details -->
                         <div class="col-md-6">
-                            <label class="form-label">Level</label>
-                            <select class="form-select" required>
-                                <option value="">Select Level</option>
-                                <option>Beginner</option>
-                                <option>Intermediate</option>
-                                <option>Advanced</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Maximum Students</label>
-                            <input type="number" class="form-control" min="1" required>
+                            <label class="form-label">Teacher ID</label>
+                            <input type="number" name="teacher_id" class="form-control" required>
                         </div>
 
                         <!-- Additional Information -->
                         <div class="col-12">
                             <label class="form-label">Course Description</label>
-                            <textarea class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Prerequisites</label>
-                            <input type="text" class="form-control" placeholder="Enter prerequisites (comma-separated)">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">End Date</label>
-                            <input type="date" class="form-control" required>
+                            <textarea name="course_description" class="form-control" rows="3" required></textarea>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" name="add_course">Add Course</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Add Course</button>
             </div>
         </div>
     </div>
 </div>
-
 
 <?php include 'layouts/footer.php'; ?>

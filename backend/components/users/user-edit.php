@@ -1,5 +1,5 @@
 <?php
-include '../database/db.php';
+include '../../database/db.php';
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -33,7 +33,7 @@ if (isset($_POST['update'])) {
     }
 }
 ?>
-
+<?php include '../../layouts/header.php' ?>
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
@@ -82,3 +82,4 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 </div>
+<?php include "../../layouts/footer.php"?>

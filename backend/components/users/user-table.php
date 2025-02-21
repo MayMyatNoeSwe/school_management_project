@@ -52,8 +52,8 @@
                                 title="View Details">
                                 <i class="bi bi-eye"></i>
                             </a>
-                            <a href="user-edit.php?id=<?= $user['user_id'] ?>" class="btn btn-sm btn-primary me-2"
-                                title="Edit">
+                            <a href="../../components/users/user-edit.php?id=<?= $user['user_id'] ?>"
+                                class="btn btn-sm btn-primary me-2" title="Edit">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             <button class="btn btn-sm btn-warning me-2" title="Reset Password">
